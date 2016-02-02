@@ -1,14 +1,12 @@
-<head>
-  <title>guestbookapp</title>
-</head>
 
+<template name="layout">
 <body>
   <h1>Welcome to Stephen's Guestbook!</h1>
 
-{{> guestBook}}
+{{> yield}}
 
 </body>
-
+</template>
 
 <template name="guestBook">
     <form>
@@ -25,6 +23,14 @@
     </form>
 
 	{{#each messages}}
-	<p>{{name}}{{message}} - {{createdOn}}</p>
+	<p><a href="{{pathFor route='message.show'}}">{{name}}{{message}} - {{createdOn}}</a></p>
 	{{/each}}
+</template>
+
+<template name="about">
+    <p>THis is an app created for IT 328. No rights reserved. No expense spared.</p>
+</template>
+
+<template name="message">
+    <p>{{name}}: {{message}}</p>
 </template>

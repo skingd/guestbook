@@ -1,5 +1,34 @@
 Messages = new Mongo.Collection("messages");
 
+Router.route('/', function(){
+    this.render('guestBook');        //render guestbook template
+    this.layout('layout');          //set the layout
+});
+
+Router.route("/about", function(){
+    this.render('about');
+    this.layout('layout');
+});
+
+Router.route('/messages/:_id', function() {
+    //Render the message and an object for it
+    this.render('message', {
+
+        //Data is a specific keyword for routing
+        data: function () {
+            //retrieve a message from database (findOne is a database command)
+            //Messages = database object to look in
+            //this.params._id is defined in the router header (Router.route('/messages/:_id', function(){)
+            return Messages.findOne({_id: this.params._id});
+        }
+    });
+
+    this.layout('layout');
+},
+    {
+name: 'message.show'
+    });
+
 if (!Meteor.isClient) {
 } else {
 
@@ -13,6 +42,7 @@ if (!Meteor.isClient) {
             //if database is invalid
         }
     });
+
 
     Template.guestBook.events(
         {
