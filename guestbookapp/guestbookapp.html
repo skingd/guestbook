@@ -1,6 +1,11 @@
 
 <template name="layout">
 <body>
+<div class="container">
+    <div class="navbar">
+        {{>loginButtons}}
+    </div>
+</div>
   <h1>Welcome to Stephen's Guestbook!</h1>
 
 {{> yield}}
@@ -8,13 +13,11 @@
 </body>
 </template>
 
-<template name="guestBook">
-    <form>
-        <div class="form-group">
-            <label for="guestName">Name</label>
-            <input type="text" name="guestName"/>
-        </div>
 
+
+<template name="guestBook">
+    {{#if currentUser}}
+    <form>
         <div class="form-group">
             <label for="guestBookMessage">Message</label>
             <textarea name="guestBookMessage" cols="30" rows="3"></textarea>
@@ -25,6 +28,7 @@
 	{{#each messages}}
 	<p><a href="{{pathFor route='message.show'}}">{{name}}{{message}} - {{createdOn}}</a></p>
 	{{/each}}
+    {{/if}}
 </template>
 
 <template name="about">
@@ -32,5 +36,7 @@
 </template>
 
 <template name="message">
+
     <p>{{name}}: {{message}}</p>
+
 </template>
