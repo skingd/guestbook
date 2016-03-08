@@ -32,6 +32,8 @@ Router.route('/messages/:_id', function () {
     });
 
 if (!Meteor.isClient) {
+
+
 } else {
 
     //subscribe to database
@@ -58,10 +60,12 @@ if (!Meteor.isClient) {
                 var messageText = messageBox.val();
 
                 if (messageText.length > 0) {
-
+                console.log(Meteor.user().username);
                     Messages.insert({
-                        name: user,
-                        message: messageText
+
+                        name: Meteor.user().username,
+                        message: messageText,
+                        createdOn: new Date()
                     });
 
                     messageBox.val("");
